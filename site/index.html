@@ -1,0 +1,159 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Netlify functions.</title>
+    <style>
+        * {
+            font-family: "Segoe UI";
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100vw;
+            margin: 0 auto;
+            background: white;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+        }
+
+        nav {
+            grid-column: 1/-1;
+            background: palevioletred;
+            padding: 10px;
+        }
+
+        nav a {
+            font-weight: bold;
+            color: white;
+            text-decoration-skip-ink: auto;
+            text-decoration-color: black;
+            margin-right: 5px;
+
+        }
+
+        nav a:visited {
+            color: papayawhip;
+        }
+
+        main {
+            max-width: 1200px;
+            background: lavender;
+            grid-column: 3 / span 8;
+            min-height: 90vh;
+        }
+
+        section {
+            background: white;
+            padding: 20px 20px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 2px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/contact.html">Contact</a>
+        <a href="/about.html">About</a>
+        <a href="/">Kangaroo</a>
+        <a href="/">Binging</a>
+    </nav>
+    <main>
+        <div class="feed">
+            <section>
+                <h2>Todo</h2>
+                <ul>
+                    <li>type script</li>
+                    <li>toc for functions</li>
+                    <li>http body handling / forms</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Seeing if external node libraries work. I tried this during my last attempt. The deployed functions
+                    didn't
+                    recognize the external libraries.</h2>
+                <p>A: Yes, they do. But you have to compile everything ahead of time with "netlify-lambda" or it doesn't
+                    work.
+                    Also, I think you have to do each time you attempt to deploy.</p>
+            </section>
+
+            <section>
+                <h2>Functions in folders with relative paths work.</h2>
+            </section>
+
+            <section>
+                <h1>One must remember to actively disconnect the database connection before sending a response otherwise
+                    the
+                    function just sits around and times out without giving a response.</h1>
+            </section>
+            <section>
+                <div id="app"></div>
+            </section>
+        </div>
+    </main>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
+    <script type="text/babel">
+        class App extends React.Component{
+            constructor(props){
+                super(props);
+                this.state = {
+                    name: "react",
+                    email: "batman@batman.ca"
+                }
+                this.handleSubmit = this.handleSubmit.bind(this);
+                this.handleChange = this.handleChange.bind(this);
+            }            
+
+            handleChange = e => {
+                const {value, name} = e.target;
+                this.setState({
+                    [name]: value
+                });
+            }
+
+            handleSubmit = e => {
+                e.preventDefault();
+                const {email} = this.state;
+                axios.post("/.netlify/functions/createEmail", {email: email})
+                    .then(res => {
+                        console.log(res.data);
+                    })
+                    .catch(e => {
+                        console.log(e);
+                    }).finally(() => {
+                        this.setState({
+                            email: ""
+                        });
+                    });
+            }
+
+            render(){
+                return (
+                    <div>
+                        <h1>hi, it's react.</h1>
+                        <p>this is state: {this.state.name}</p>
+                        <form onSubmit = {this.handleSubmit}>
+                            <input type = "text" 
+                                name = "email" 
+                                value = {this.state.email} 
+                                onChange = {this.handleChange}
+                                placeholder = "email@email.ca"/>
+                            <input type = "submit"/>
+                        </form>
+                    </div>
+                );
+            }
+        }
+
+        ReactDOM.render(<App/>, document.getElementById("app"))
+    </script>
+</body>
+
+</html>

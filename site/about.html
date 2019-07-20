@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <style>
+        @supports (-webkit-background-clip: text) {
+            .faded-text {
+                /* Fading background gradient from the current text color */
+                background-image:
+                    linear-gradient(currentColor 20%,
+                        transparent);
+
+                /* Clip it to the text */
+                -webkit-background-clip: text;
+
+                /* Set the text to transparent for the fading background to show through */
+
+            }
+        }
+
+        @supports (background-clip: text) {
+            .faded-text {
+                /* Fading background gradient from the current text color */
+                background-image:
+                    linear-gradient(currentColor 20%,
+                        transparent);
+
+                /* Clip it to the text */
+                background-clip: text;
+
+                /* Set the text to transparent for the fading background to show through */
+            }
+        }
+
+
+        html {
+            height: 100%;
+            display: grid;
+        }
+
+        body {
+            width: 80%;
+            max-width: 30em;
+            padding: 1em;
+            margin: auto;
+
+
+        }
+
+        body:last-child {
+            margin-bottom: 0;
+        }
+
+
+        @import url('https://fonts.googleapis.com/css?family=Noto+Sans+HK:500&display=swap');
+
+        html {
+            background: #20303C;
+            background-image: url(https://source.unsplash.com/Mp4yCGNtO6s);
+            background-position: center center;
+            background-size: cover;
+            color: white;
+
+            font-family: 'Noto Sans HK', sans-serif;
+            font-weight: 500;
+            font-size: 3.5vw;
+        }
+    </style>
+</head>
+
+<body>
+    <nav><a href="/index.html">Home</a></nav>
+    <p>the contact page</p>
+
+    <section>
+        <div class="faded-text">
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent bibendum, lorem vel tincidunt
+                imperdiet, nibh elit laoreet felis, a bibendum nisl tortor non orci. Donec pretium fermentum felis, quis
+                aliquet est rutrum ut.</p>
+
+            <p>Vestibulum nunc massa, gravida quis porta nec, feugiat id metus. Nunc ac arcu dolor, quis vestibulum leo.
+                Cras viverra mollis ipsum, non rhoncus lectus aliquam et. Donec sit amet posuere enim. Cras in eros id
+                tortor fringilla.</p>
+        </div>
+    </section>
+</body>
+
+</html>

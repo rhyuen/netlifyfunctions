@@ -1,0 +1,27 @@
+{
+  "name": "nodefaasapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "",
+    "start:lambda": "netlify-lambda serve src/lambda",
+    "build:lambda": "netlify-lambda build src/lambda",
+    "deploy": "npm run build:lambda && netlify deploy --prod",
+    "visit": "netlify open:site",
+    "load:links": "node dbinit.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@sentry/node": "^5.5.0",
+    "axios": "^0.19.0",
+    "dotenv": "^8.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.6.0",
+    "netlify-lambda": "^1.4.13",
+    "validator": "^11.0.0"
+  }
+}
