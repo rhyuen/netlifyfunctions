@@ -10,7 +10,26 @@ exports.handler = async (evt, ctx) => {
             useNewUrlParser: true
         });
 
-        const result = await Link.find();
+        const {
+            category
+        } = evt.queryStringParameters;
+        let queryField = ""
+        switch (category) {
+            case "economics":
+                queryField = {
+                    tags: "economics"
+                };
+                break;
+            case "environment":
+                queryField = {
+                    tags: "environment"
+                };
+                break;
+            default:
+                queryField = {}
+        }
+
+        const result = await Link.find(queryField);
 
         const clientResponse = JSON.stringify({
             message: "Hello, from my article JSON articles server.",
